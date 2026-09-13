@@ -50,7 +50,8 @@ resource "azurerm_public_ip" "vm_public" {
   name                = "vm-public-ip"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static" # This is required for the Standard SKU
+  sku                 = "Standard" # Basic is deprecated
 }
 
 #
@@ -74,11 +75,12 @@ resource "azurerm_network_interface" "nic" {
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = "ubuntu-vm"
   resource_group_name = azurerm_resource_group.rg.name
-  location            = var.location
-  size                = var.vm_size
-  admin_username      = var.vm_admin_username
-  admin_password      = var.vm_admin_password
-  network_interface_ids = [azurerm_network_interface.nic.id]
+  location                        = var.location
+  size                            = var.vm_size
+  admin_username                  = var.vm_admin_username
+  admin_password                  = var.vm_admin_password
+  disable_password_authentication = false
+  network_interface_ids           = [azurerm_network_interface.nic.id]
 
   os_disk {
     caching              = "ReadWrite"
