@@ -18,7 +18,7 @@ jobs:
 
       # Terraform variables (no interactive prompts)
       TF_VAR_ssh_source_ip: ${{ secrets.SSH_SOURCE_IP }}
-      TF_VAR_admin_password: ${{ secrets.ADMIN_PASSWORD }}
+      TF_VAR_vm_admin_password: ${{ secrets.ADMIN_PASSWORD }}
 
     steps:
       - name: Checkout repo
