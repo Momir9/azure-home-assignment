@@ -8,12 +8,26 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+
+    env:
+      # Azure service principal credentials
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+      # Terraform variables (no interactive prompts)
+      TF_VAR_ssh_source_ip: ${{ secrets.SSH_SOURCE_IP }}
+      TF_VAR_admin_password: ${{ secrets.ADMIN_PASSWORD }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.9.5
 
       - name: Azure Login
         uses: azure/login@v1
@@ -21,13 +35,11 @@ jobs:
           creds: ${{ secrets.AZURE_SECRET }}
 
       - name: Terraform Init
-        run: terraform init
-        working-directory: terraform
+        run: terraform -chdir=terraform init
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
-        working-directory: terraform
+        run: terraform -chdir=terraform plan -out=tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
-        working-directory: terraform
+        if: github.ref == 'refs/heads/main'
+        run: terraform -chdir=terraform apply -auto-approve tfplan
