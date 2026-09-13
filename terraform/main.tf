@@ -106,3 +106,12 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS" # Cost-effective redundancy
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#example-usage-with-network-rules
 }
+
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "rg-cloud-assignment"
+    storage_account_name = "cloudassignmentstore"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
+}
