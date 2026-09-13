@@ -22,3 +22,9 @@ variable "vm_size" {
   type        = string
   default     = "Standard_B1s"
 }
+
+variable "ssh_source_ip" {
+  description = "Public IP address allowed to SSH into the VM"
+  type        = string
+}
+

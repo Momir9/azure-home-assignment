@@ -37,10 +37,12 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "YOUR_PUBLIC_IP" # Replace with your IP
+    source_address_prefix      = var.ssh_source_ip
     destination_address_prefix = "*"
   }
 }
+
+
 
 # Public IP, dynamic
 
@@ -100,4 +102,5 @@ resource "azurerm_storage_account" "storage" {
   location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS" # Cost-effective redundancy
+  # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#example-usage-with-network-rules
 }
