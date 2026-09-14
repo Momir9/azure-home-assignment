@@ -95,7 +95,20 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
+# action group for alerts
+resource "azurerm_monitor_action_group" "notify" {
+  name                = "ag-notify"
+  resource_group_name = azurerm_resource_group.rg.name
+  short_name          = "notify"
+
+  email_receiver {
+    name          = "admin-email"
+    email_address = "macesicfree@hotmail.com"
+  }
+}
+
 # Alerting for CPU threshold on the VM
+# https://registry.terraform.io/providers/hashicorp/azurerm/4.0.1/docs/resources/monitor_metric_alert
 resource "azurerm_monitor_metric_alert" "cpu_alert" {
   name                = "cpu-high-alert"
   resource_group_name = azurerm_resource_group.rg.name
