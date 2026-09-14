@@ -16,7 +16,7 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
-      # Terraform variables (no interactive prompts)
+      # Terraform variables - this is needed for interractive prompts
       TF_VAR_ssh_source_ip: ${{ secrets.SSH_SOURCE_IP }}
       TF_VAR_vm_admin_password: ${{ secrets.ADMIN_PASSWORD }}
 
