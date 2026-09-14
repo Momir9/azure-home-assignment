@@ -68,6 +68,6 @@ nic_name: Network Interface name
 
 vm_name: Virtual Machine name
 
-#Cleanup
+# Cleanup
 
 terraform destroy -auto-approve
