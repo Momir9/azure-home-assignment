@@ -95,6 +95,29 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
+# Alerting for CPU threshold on the VM
+resource "azurerm_monitor_metric_alert" "cpu_alert" {
+  name                = "cpu-high-alert"
+  resource_group_name = azurerm_resource_group.rg.name
+  scopes              = [azurerm_linux_virtual_machine.vm.id]
+  description         = "Alert when CPU > 80%"
+  severity            = 2
+  frequency           = "PT1M"
+  window_size         = "PT5M"
+
+  criteria {
+    metric_namespace = "Microsoft.Compute/virtualMachines"
+    metric_name      = "Percentage CPU"
+    aggregation      = "Average"
+    operator         = "GreaterThan"
+    threshold        = 80
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.notify.id
+  }
+}
+
 # Storage account, HTTPS only
 # https://registry.terraform.io/providers/hashicorp/azurerm/4.1.0/docs/resources/storage_account
 
