@@ -109,8 +109,8 @@ resource "azurerm_storage_account" "storage" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name  = "rg-cloud-assignment"
-    storage_account_name = "cloudassignmentstore"
+    resource_group_name  = "rg-terraform-backend"
+    storage_account_name = "tfstatebackendmomir9876"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }

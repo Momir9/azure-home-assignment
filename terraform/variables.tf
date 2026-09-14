@@ -5,7 +5,7 @@ variable "resource_group_name" {
 
 variable "location" {
   type        = string
-  default     = "westeurope"
+  default     = "northeurope"
 }
 
 variable "vm_admin_username" {
@@ -20,7 +20,7 @@ variable "vm_admin_password" {
 
 variable "vm_size" {
   type        = string
-  default     = "Standard_B2s"
+  default     = "Standard_A1_v2"
 }
 
 variable "ssh_source_ip" {
