@@ -1,0 +1,39 @@
+# Azure region where resources will be deployed
+location          = "northeurope"
+
+# VM size (adjust if SKU is constrained in northeurope)
+vm_size           = "Standard_B2ats_v2"
+
+# Admin username for the VM
+vm_admin_username = "azureuser"
+
+# Admin password for the VM (use a strong password!)
+vm_admin_password = "StrongP@ssw0rd123!"
+
+# Public IP address allowed to SSH into the VM
+ssh_source_ip     = "203.0.112.45"
+
+# Storage account name for application data and Terraform backend
+storage_account_name = "cloudassignmentstore"
+
+# Resource group name for the assignment
+resource_group_name  = "rg-cloud-assignment"
+
+# Virtual network and subnet configuration
+vnet_name        = "vnet-cloud"
+vnet_address_space = ["10.0.0.0/16"]
+
+subnet_name      = "app-subnet"
+subnet_prefixes  = ["10.0.1.0/24"]
+
+# Network Security Group name
+nsg_name         = "nsg-app"
+
+# Public IP name
+public_ip_name   = "vm-public-ip"
+
+# Network Interface name
+nic_name         = "nic-app"
+
+# VM name
+vm_name          = "ubuntu-vm"

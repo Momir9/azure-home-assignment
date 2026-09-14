@@ -20,7 +20,7 @@ variable "vm_admin_password" {
 
 variable "vm_size" {
   type        = string
-  default     = "Standard_A1_v2"
+  default     = "Standard_B2ats_v2"
 }
 
 variable "ssh_source_ip" {
